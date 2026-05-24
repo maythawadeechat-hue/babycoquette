@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html class="light" lang="th">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Baby Coquette - Custom Order Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Mitr:wght@300;400;500&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+body {
+font-family: 'Plus Jakarta Sans', 'Mitr', sans-serif;
+background: #fff7fb;
+}
+input[type="radio"]:checked + div,
+input[type="checkbox"]:checked + div {
+background: #ffc1d6;
+border-color: #ff7cab;
+}
+</style>
+</head>
+<body class="min-h-screen p-6">
+<div class="max-w-5xl mx-auto grid md:grid-cols-3 gap-6">
+
+<div class="md:col-span-2 bg-white rounded-3xl shadow-xl p-6 border border-pink-200">
+<h1 class="text-4xl font-bold text-pink-500 text-center mb-2">babycoquette</h1>
+<p class="text-center text-pink-300 mb-8">custom order calculator 🎀</p>
+
+<h2 class="font-bold text-pink-500 mb-3 text-xl">เลือกสินค้า</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+
+<label>
+<input checked hidden name="product" onchange="updateUI()" type="radio" value="iphone">
+<div class="border rounded-2xl p-4 text-center cursor-pointer">
+<p class="font-bold">iPhone</p>
+<p>199 บาท</p>
+</div>
+</label>
+
+<label>
+<input hidden name="product" onchange="updateUI()" type="radio" value="ipad">
+<div class="border rounded-2xl p-4 text-center cursor-pointer">
+<p class="font-bold">iPad</p>
+<p>289 บาท</p>
+</div>
+</label>
+
+<label>
+<input hidden name="product" onchange="updateUI()" type="radio" value="film">
+<div class="border rounded-2xl p-4 text-center cursor-pointer">
+<p class="font-bold">flim camera</p>
+<p>150 บาท</p>
+</div>
+</label>
+</div>
+
+<div class="mb-6">
+<h2 class="font-bold text-pink-500 mb-3 text-xl">เลือกรุ่น</h2>
+<select class="w-full border rounded-2xl p-3" id="model" onchange="updateUI()">
+<option>17 Pro</option>
+<option>17 Pro Max</option>
+</select>
+</div>
+
+<div class="mb-6" id="text-area">
+<h2 class="font-bold text-pink-500 mb-3 text-xl">ข้อความ</h2>
+<input class="w-full border rounded-2xl p-3" id="custom-text" oninput="updateUI()" placeholder="ฟรี 6 ตัวอักษร">
+<p class="text-sm text-gray-500 mt-2">เกิน 6 ตัวอักษร +5 บาท/ตัว</p>
+</div>
+
+<div class="hidden mb-6" id="film-area">
+<h2 class="font-bold text-pink-500 mb-3 text-xl">1 ตัวอักษร</h2>
+<input maxlength="1" class="w-full border rounded-2xl p-3" id="film-text" oninput="updateUI()" placeholder="A">
+</div>
+
+<div class="mb-6">
+<h2 class="font-bold text-pink-500 mb-3 text-xl">สไตล์</h2>
+<div class="flex gap-3">
+<label class="flex-1">
+<input checked hidden name="style" onchange="updateUI()" type="radio" value="ใสล้วน">
+<div class="border rounded-2xl p-3 text-center cursor-pointer">ใสล้วน</div>
+</label>
+
+<label class="flex-1">
+<input hidden name="style" onchange="updateUI()" type="radio" value="สีรวม">
+<div class="border rounded-2xl p-3 text-center cursor-pointer">สีรวม</div>
+</label>
+</div>
+</div>
+
+<h2 class="font-bold text-pink-500 mb-3 text-xl">ของตกแต่ง</h2>
+
+<p class="mb-2 font-semibold">5 บาท</p>
+<div class="flex flex-wrap gap-2 mb-5">
+<script>
+const deco5 = ['โบว์','หัวใจ','จุด','วิ้ง','ดาว','ปีกนางฟ้า 1 ข้าง'];
+document.write(deco5.map(item => `
+<label>
+<input hidden type="checkbox" value="${item}" data-price="5" onchange="updateUI()" class="addon">
+<div class="border rounded-full px-4 py-2 cursor-pointer">${item}</div>
+</label>
+`).join(''));
+</script>
+</div>
+
+<p class="mb-2 font-semibold">10 บาท</p>
+<div class="flex flex-wrap gap-2 mb-5">
+<script>
+const deco10 = ['ผีเสื้อ1','ผีเสื้อ2','ดอกไม้','ไม้กางเขน','ลายเลื้อย','เชอร์รี่','กระต่าย','ปีกนางฟ้า 2 ข้าง'];
+document.write(deco10.map(item => `
+<label>
+<input hidden type="checkbox" value="${item}" data-price="10" onchange="updateUI()" class="addon">
+<div class="border rounded-full px-4 py-2 cursor-pointer">${item}</div>
+</label>
+`).join(''));
+</script>
+</div>
+
+<p class="mb-2 font-semibold">30 บาท</p>
+<div class="flex flex-wrap gap-2 mb-5">
+<script>
+const deco30 = ['มายเมโลดี้','ชบา','คิตตี้'];
+document.write(deco30.map(item => `
+<label>
+<input hidden type="checkbox" value="${item}" data-price="30" onchange="updateUI()" class="addon">
+<div class="border rounded-full px-4 py-2 cursor-pointer">${item}</div>
+</label>
+`).join(''));
+</script>
+</div>
+</div>
+
+<div class="bg-pink-100 rounded-3xl p-6 h-fit sticky top-6">
+<h2 class="text-2xl font-bold text-pink-500 mb-4">สรุปรายการ</h2>
+<div id="summary"></div>
+<div class="border-t mt-4 pt-4 flex justify-between text-2xl font-bold text-pink-600">
+<span>รวมทั้งหมด</span>
+<span id="total">0 บาท</span>
+</div>
+</div>
+</div>
+
+<script>
+function updateUI(){
+const product = document.querySelector('input[name="product"]:checked').value;
+const style = document.querySelector('input[name="style"]:checked').value;
+const model = document.getElementById('model').value;
+const summary = document.getElementById('summary');
+
+let total = 50;
+let html = '';
+
+if(product === 'iphone'){
+ total += 199;
+ html += `<div class="flex justify-between mb-2"><span>iPhone</span><span>199 บาท</span></div>`;
+ document.getElementById('text-area').classList.remove('hidden');
+ document.getElementById('film-area').classList.add('hidden');
+}
+
+if(product === 'ipad'){
+ total += 289;
+ html += `<div class="flex justify-between mb-2"><span>iPad</span><span>289 บาท</span></div>`;
+ document.getElementById('text-area').classList.remove('hidden');
+ document.getElementById('film-area').classList.add('hidden');
+}
+
+if(product === 'film'){
+ total += 150;
+ html += `<div class="flex justify-between mb-2"><span>flim camera</span><span>150 บาท</span></div>`;
+ document.getElementById('text-area').classList.add('hidden');
+ document.getElementById('film-area').classList.remove('hidden');
+}
+
+html += `<div class="flex justify-between mb-2"><span>รุ่น</span><span>${model}</span></div>`;
+html += `<div class="flex justify-between mb-2"><span>สไตล์</span><span>${style}</span></div>`;
+
+if(product !== 'film'){
+ const text = document.getElementById('custom-text').value;
+ html += `<div class="flex justify-between mb-2"><span>ข้อความ</span><span>${text || '-'}</span></div>`;
+
+ if(text.length > 6){
+   let extra = (text.length - 6) * 5;
+   total += extra;
+   html += `<div class="flex justify-between mb-2 text-pink-600"><span>ค่าตัวอักษรเพิ่ม</span><span>+${extra}</span></div>`;
+ }
+}
+
+if(product === 'film'){
+ const filmText = document.getElementById('film-text').value;
+ html += `<div class="flex justify-between mb-2"><span>ตัวอักษร</span><span>${filmText || '-'}</span></div>`;
+}
+
+const addons = document.querySelectorAll('.addon:checked');
+addons.forEach(item => {
+ const price = Number(item.dataset.price);
+ total += price;
+ html += `<div class="flex justify-between mb-2 text-pink-600"><span>${item.value}</span><span>+${price}</span></div>`;
+});
+
+html += `<div class="flex justify-between mb-2"><span>ค่าส่ง</span><span>50 บาท</span></div>`;
+
+summary.innerHTML = html;
+document.getElementById('total').innerText = total + ' บาท';
+}
+
+updateUI();
+</script>
+</body>
+</html>
